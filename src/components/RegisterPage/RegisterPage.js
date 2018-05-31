@@ -22,13 +22,14 @@ class RegisterPage extends Component {
         message: 'Choose a username and password!',
       });
     } else {
-      axios.post('api/user/register', {
-        headers: { 'Content-Type': 'application/json' },
-        body: {
+      axios.post('api/user/register', 
+        {
           username: this.state.username,
           password: this.state.password,
         },
-      }).then((response) => {
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }).then((response) => {
           if (response.status === 201) {
             this.props.history.push('/home');
           } else {
