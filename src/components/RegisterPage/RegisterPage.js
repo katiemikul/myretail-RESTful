@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 class RegisterPage extends Component {
@@ -21,29 +22,24 @@ class RegisterPage extends Component {
         message: 'Choose a username and password!',
       });
     } else {
-      const request = new Request('api/user/register', {
-        method: 'POST',
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({
+      axios.post('api/user/register', {
+        headers: { 'Content-Type': 'application/json' },
+        body: {
           username: this.state.username,
           password: this.state.password,
-        }),
-      });
-
-      // making the request to the server to post the country
-      fetch(request)
-        .then((response) => {
+        },
+      }).then((response) => {
           if (response.status === 201) {
             this.props.history.push('/home');
           } else {
             this.setState({
-              message: 'Ooops! That didn\'t work. The username might already be taken. Try again!',
+              message: `Ooops! That didn't work. The username might already be taken. Try again!`,
             });
           }
         })
         .catch(() => {
           this.setState({
-            message: 'Ooops! Something went wrong! Is the server running?',
+            message: `Ooops! Something went wrong! Is the server running?`,
           });
         });
     }
