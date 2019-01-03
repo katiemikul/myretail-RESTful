@@ -41,22 +41,22 @@ class InfoPage extends Component {
     });
 }
 
-findProducts = () => {
-      axios.get('/api/products', (req, res) => {
-          axios({
-              method: 'GET',
-              params: {}
-          }).then(response => {
-              console.log(response.data);
-              this.setState({
-                  products: response.data
-              });
-          }).catch(error => {
-              alert('There was an error getting requested product information');
-          console.log(`ERROR trying to GET api/products: ${error}`);
-          });
-      })
-  }
+// findProducts = () => {
+//       axios.get('/api/products', (req, res) => {
+//           axios({
+//               method: 'GET',
+//               params: {}
+//           }).then(response => {
+//               console.log(response.data);
+//               this.setState({
+//                   products: response.data
+//               });
+//           }).catch(error => {
+//               alert('There was an error getting requested product information');
+//           console.log(`ERROR trying to GET api/products: ${error}`);
+//           });
+//       })
+//   }
 
   render() {
     let content = null;
@@ -67,7 +67,7 @@ findProducts = () => {
           <p>
             Product Inventory
           </p>
-          <button onClick={this.findProducts}>Inventory</button>
+          <button onClick={this.retrieveProducts}>Inventory</button>
 
 {JSON.stringify(this.state)}
 
