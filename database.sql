@@ -1,16 +1,11 @@
-CREATE DATABASE passport_intro;
+CREATE DATABASE myretail;
 
-CREATE TABLE "person" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
+CREATE TABLE "users"(
+	"id" SERIAL PRIMARY KEY,
+	"username" VARCHAR(80) NOT NULL,
+	"password" VARCHAR(120) NOT NULL);
 
-CREATE TABLE "pet" (
-    "id" SERIAL PRIMARY KEY,
-    "firstname" VARCHAR (80) UNIQUE NOT NULL,
-    "person_id" INT REFERENCES "person"
-);
-
--- NEED TO HAVE A REGISTERED USER (at 1) FOR THIS TO WORK
-INSERT INTO pet ("firstname", "person_id") VALUES ('ibis', 1);
+CREATE TABLE "products"(
+	"id" SERIAL PRIMARY KEY,
+	"product description" VARCHAR(80) NOT NULL,
+	"cost" VARCHAR(10) NOT NULL);

@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Nav from '../../components/Nav/Nav';
 import {USER_ACTIONS} from '../../redux/actions/userActions';
 
 const mapStateToProps = state => ({
   user: state.user,
+
 });
 
+
 class InfoPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      products: [],
+    };
+  }
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
   }
@@ -19,6 +28,20 @@ class InfoPage extends Component {
     }
   }
 
+  retrieveProducts = () => {
+    axios.get('/api/products', { params: {products: this.state.products } }).then(response => {
+        console.log(response.data);
+        this.setState({
+            products: response.data
+        });
+       
+    }).catch(error => {
+        alert('There was an error getting product inventory');
+        console.log(`ERROR trying to GET api/products: ${error}`);
+    });
+}
+
+
   render() {
     let content = null;
 
@@ -26,8 +49,12 @@ class InfoPage extends Component {
       content = (
         <div>
           <p>
-            Info Page
+            Product Inventory
           </p>
+          <button onClick={this.retrieveProducts}>Inventory</button>
+
+{JSON.stringify(this.state)}
+
         </div>
       );
     }
@@ -41,5 +68,4 @@ class InfoPage extends Component {
   }
 }
 
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(InfoPage);
