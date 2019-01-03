@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
             params: {}
         })
         .then((results) => {
-            res.send(results.rows)
+            res.send(results.data)
             console.log(results.data)
         })
         .catch((error) => {

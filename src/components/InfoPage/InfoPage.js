@@ -15,8 +15,10 @@ class InfoPage extends Component {
   constructor() {
     super();
     this.state = {
-      products: [],
-    };
+      // product: [],
+      // item: [],
+      productArray: [],
+  };
   }
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
@@ -28,35 +30,33 @@ class InfoPage extends Component {
     }
   }
 
-  retrieveProducts = () => {
-    axios.get('/api/products', { params: {products: this.state.products } }).then(response => {
-        console.log(response.data);
-        this.setState({
-            products: response.data
-        });
+//Get route for database
+//   retrieveProducts = () => {
+//     axios.get('/api/products', { params: {products: this.state.products } }).then(response => {
+//         console.log(response.data);
+//         this.setState({
+//             products: response.data
+//         });
        
-    }).catch(error => {
-        alert('There was an error getting product inventory');
-        console.log(`ERROR trying to GET api/products: ${error}`);
-    });
-}
+//     }).catch(error => {
+//         alert('There was an error getting product inventory');
+//         console.log(`ERROR trying to GET api/products: ${error}`);
+//     });
+// }
 
-// findProducts = () => {
-//       axios.get('/api/products', (req, res) => {
-//           axios({
-//               method: 'GET',
-//               params: {}
-//           }).then(response => {
-//               console.log(response.data);
-//               this.setState({
-//                   products: response.data
-//               });
-//           }).catch(error => {
-//               alert('There was an error getting requested product information');
-//           console.log(`ERROR trying to GET api/products: ${error}`);
-//           });
-//       })
-//   }
+//Get route for API data
+findProducts = () => {
+  axios.get('/api/products', { params: {products: this.state.products } }).then(response => {
+    console.log(response.data);
+    this.setState({
+        productArray: response.data
+    });
+   
+}).catch(error => {
+    alert('There was an error getting product inventory');
+    console.log(`ERROR trying to GET api/products: ${error}`);
+});
+}
 
   render() {
     let content = null;
@@ -67,7 +67,7 @@ class InfoPage extends Component {
           <p>
             Product Inventory
           </p>
-          <button onClick={this.retrieveProducts}>Inventory</button>
+          <button onClick={this.findProducts}>Inventory</button>
 
 {JSON.stringify(this.state)}
 
